@@ -23,12 +23,12 @@ class RegistrationTests(unittest.TestCase):
         self.driver.maximize_window()
         # 1b) Otwieram stronę główną
         self.driver.get("https://www.filmweb.pl/")
+        sleep(1)
         cookie_accept = self.driver.find_element(By.ID, "didomi-notice-agree-button")
         cookie_accept.click()
-        sleep(0)
         skip_accept = self.driver.find_element(By.XPATH, '/html/body/div[1]/div[1]/div/button')
         skip_accept.click()
-        sleep(1)
+
 
     def tearDown(self):
         # Wyłącz przeglądarkę
@@ -71,11 +71,6 @@ class RegistrationTests(unittest.TestCase):
         comment.send_keys(Keys.RETURN)
         sleep(2)
         driver.quit()
-
-        # (OSTROŻNIE!) 7. Kliknij Załóż konto, żeby wywołać informację o błędzie
-        create_btn = self.driver.find_element(By.ID, "create-account")
-        create_btn.click()
-        sleep(4)
         # UWAGA! TU BĘDZIE TEST!
         # OCZEKIWANY REZULTAT
         # a) Szukam wszystkich elementów (informacji o błędzie użytkownika)
