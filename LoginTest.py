@@ -8,6 +8,8 @@ from time import sleep
 User = "tester284"
 email = "tester284@o2.pl"
 password = "Tester284wsb7"
+search = "Pulp fiction"
+comment = "Super"
 
 
 class RegistrationTests(unittest.TestCase):
@@ -23,6 +25,7 @@ class RegistrationTests(unittest.TestCase):
         self.driver.get("https://www.filmweb.pl/")
         cookie_accept = self.driver.find_element(By.ID, "didomi-notice-agree-button")
         cookie_accept.click()
+        sleep(0)
         skip_accept = self.driver.find_element(By.XPATH, '/html/body/div[1]/div[1]/div/button')
         skip_accept.click()
         sleep(1)
@@ -54,8 +57,21 @@ class RegistrationTests(unittest.TestCase):
     # 5. zaloguj
         login = self.driver.find_element(By.XPATH, '//*[@id="loginForm"]/div[2]/ul/li[1]/button')
         login.click()
-        # 6. Akceptuj regulamin
-        self.driver.find_element(By.XPATH, '//label[@class="checkbox-wrapper__label"]').click()
+        # 6. Wyszukaj film
+        sleep(2)
+        search_input = self.driver.find_element(By.ID, 'inputSearch')
+        search_input.send_keys(search)
+        sleep(2)
+        choose = self.driver.find_element(By.XPATH, '/html/body/div[9]/div/div/div[1]/div[1]/div[3]/div[2]/div[1]/a/div/img')
+        choose.click()
+        rate = self.driver.find_element(By.XPATH, '//*[@id="site"]/div[3]/div[2]/div/div[4]/section/div/div/div/div/div/div[1]/div/div/div/div[1]/div[2]/div/div/a[10]')
+        rate.click()
+        comment = self.driver.find_element(By.XPATH, '//*[@id="site"]/div[3]/div[2]/div/div[4]/section/div/div/div/div/div/div[1]/div/div/div/div[1]/div[3]/div/div/a')
+        comment.send_keys(comment)
+        comment.send_keys(Keys.RETURN)
+        sleep(2)
+        driver.quit()
+
         # (OSTROŻNIE!) 7. Kliknij Załóż konto, żeby wywołać informację o błędzie
         create_btn = self.driver.find_element(By.ID, "create-account")
         create_btn.click()
