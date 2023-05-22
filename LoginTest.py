@@ -44,9 +44,7 @@ class RegistrationTests(unittest.TestCase):
 
     def testNoNameEntered(self):
         # KROKI
-        # 1. Kliknij „Zarejestruj”
-        # 1a) Odszukaj przycisk Zarejestruj
-        # 1b) Kliknij ten przycisk
+        #
         sleep(1)
         wait = WebDriverWait(self.driver, 15)
         zaloguj_a = wait.until(EC.presence_of_element_located((By.ID, "main-header_login-link")))
@@ -75,5 +73,5 @@ class RegistrationTests(unittest.TestCase):
         wait = WebDriverWait(self.driver, 15)
         search_input = wait.until(EC.presence_of_element_located((By.ID, 'inputSearch')))
         search_input.send_keys(search)
-        sleep(6)
+        sleep(15)
         self.driver.quit()
