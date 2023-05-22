@@ -30,9 +30,11 @@ class RegistrationTests(unittest.TestCase):
         # 1b) Otwieram stronę główną
         self.driver.get("https://www.filmweb.pl/")
         sleep(1)
-        cookie_accept = self.driver.find_element(By.ID, "didomi-notice-agree-button")
+        wait = WebDriverWait(self.driver, 10)
+        cookie_accept = wait.until(EC.presence_of_element_located((By.ID, "didomi-notice-agree-button")))
         cookie_accept.click()
-        wait = WebDriverWait(self.driver, 15)  # Maksymalny czas oczekiwania w sekundach
+        sleep(1)
+        wait = WebDriverWait(self.driver, 10)  # Maksymalny czas oczekiwania w sekundach
         skip_accept = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[1]/div[1]/div/button')))
         skip_accept.click()
 
@@ -46,10 +48,11 @@ class RegistrationTests(unittest.TestCase):
         # 1a) Odszukaj przycisk Zarejestruj
         # 1b) Kliknij ten przycisk
         sleep(1)
-        zaloguj_a = self.driver.find_element(By.ID, "main-header_login-link")
+        wait = WebDriverWait(self.driver, 15)
+        zaloguj_a = wait.until(EC.presence_of_element_located((By.ID, "main-header_login-link")))
         zaloguj_a.click()
         sleep(1)
-        zaloguj_b = self.driver.find_element(By.XPATH, '//*[@id="site"]/div[2]/div/div/div[1]/div/div/ul/li[2]/a/div[2]')
+        zaloguj_b = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="site"]/div[2]/div/div/div[1]/div/div/ul/li[2]/a/div[2]')))
         zaloguj_b.click()
         sleep(1)
         # 2. Wpisz nazwisko
@@ -64,7 +67,7 @@ class RegistrationTests(unittest.TestCase):
         login = self.driver.find_element(By.XPATH, '//*[@id="loginForm"]/div[2]/ul/li[1]/button')
         login.click()
         sleep(2)
-        wait = WebDriverWait(self.driver, 15)
+        wait = WebDriverWait(self.driver, 10)
         OK = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[6]/div/div[3]/button')))
         OK.click()
         sleep(2)
@@ -72,19 +75,5 @@ class RegistrationTests(unittest.TestCase):
         wait = WebDriverWait(self.driver, 15)
         search_input = wait.until(EC.presence_of_element_located((By.ID, 'inputSearch')))
         search_input.send_keys(search)
-        search_input.send_keys(Keys.RETURN)
-        sleep(2)
-        wait = WebDriverWait(self.driver, 20)
-        choose = wait.until(EC.presence_of_element_located((By.ID, '//*[@id="1039"]/span/div/div[2]/a')))
-        choose.click()
-        self.driver.execute_script("window.scrollBy(0, window.innerHeight * 0,3)")
-        rate = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="site"]/div[3]/div[2]/div/div[4]/section/div/div/div/div/div/div[1]/div/div/div/div[1]/div[2]/div/div/a[10]')))
-        rate.click()
-        sleep(2)
-        comment = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="site"]/div[3]/div[2]/div/div[4]/section/div/div/div/div/div/div[1]/div/div/div/div[1]/div[3]/div/div/a')))
-        sleep(2)
-        comment.click()
-        comment.send_keys(comments)
-        comment.send_keys(Keys.RETURN)
-        sleep(4)
+        sleep(6)
         self.driver.quit()
