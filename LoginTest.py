@@ -13,7 +13,7 @@ import pyautogui
 User = "tester284"
 password = "Tester284wsb7"
 search = "Pulp fiction"
-comment = "Super"
+comments = "Super"
 
 chrome_options = Options()
 chrome_options.add_experimental_option("prefs", {"profile.default_content_setting_values.notifications": 2})
@@ -32,7 +32,7 @@ class RegistrationTests(unittest.TestCase):
         sleep(1)
         cookie_accept = self.driver.find_element(By.ID, "didomi-notice-agree-button")
         cookie_accept.click()
-        wait = WebDriverWait(self.driver, 4)  # Maksymalny czas oczekiwania w sekundach
+        wait = WebDriverWait(self.driver, 15)  # Maksymalny czas oczekiwania w sekundach
         skip_accept = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[1]/div[1]/div/button')))
         skip_accept.click()
 
@@ -64,16 +64,18 @@ class RegistrationTests(unittest.TestCase):
         login = self.driver.find_element(By.XPATH, '//*[@id="loginForm"]/div[2]/ul/li[1]/button')
         login.click()
         sleep(2)
-        wait = WebDriverWait(self.driver, 5)
+        wait = WebDriverWait(self.driver, 15)
         OK = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[6]/div/div[3]/button')))
         OK.click()
+        sleep(2)
         # 6. Wyszukaj film
-        wait = WebDriverWait(self.driver, 5)
+        wait = WebDriverWait(self.driver, 15)
         search_input = wait.until(EC.presence_of_element_located((By.ID, 'inputSearch')))
         search_input.send_keys(search)
-        sleep(1)
-        wait = WebDriverWait(self.driver, 5)
-        choose = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[8]/div/div/div[1]/div[1]/div[3]/div[2]/div[1]/a/div/img')))
+        search_input.send_keys(Keys.RETURN)
+        sleep(2)
+        wait = WebDriverWait(self.driver, 20)
+        choose = wait.until(EC.presence_of_element_located((By.ID, '//*[@id="1039"]/span/div/div[2]/a')))
         choose.click()
         self.driver.execute_script("window.scrollBy(0, window.innerHeight * 0,3)")
         rate = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="site"]/div[3]/div[2]/div/div[4]/section/div/div/div/div/div/div[1]/div/div/div/div[1]/div[2]/div/div/a[10]')))
@@ -82,7 +84,7 @@ class RegistrationTests(unittest.TestCase):
         comment = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="site"]/div[3]/div[2]/div/div[4]/section/div/div/div/div/div/div[1]/div/div/div/div[1]/div[3]/div/div/a')))
         sleep(2)
         comment.click()
-        comment.send_keys(comment)
+        comment.send_keys(comments)
         comment.send_keys(Keys.RETURN)
         sleep(4)
         self.driver.quit()
