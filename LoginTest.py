@@ -13,7 +13,7 @@ User = "tester284"
 password = "Tester284wsb7"
 search = "Pulp fiction"
 scroll_amount = 100  # Ilość pikseli do przewinięcia w jednym kroku
-scroll_iterations = 10  # Ilość kroków przewijania
+scroll_iterations = 4  # Ilość kroków przewijania
 chrome_options = Options()
 chrome_options.add_experimental_option("prefs", {"profile.default_content_setting_values.notifications": 2})
 
@@ -77,10 +77,14 @@ class RegistrationTests(unittest.TestCase):
         time.sleep(5)
         for _ in range(scroll_iterations):
             self.driver.execute_script(f"window.scrollBy(0, {scroll_amount})")
-            time.sleep(0.9)  # Odstęp między kolejnymi krokami
+            time.sleep(2)  # Odstęp między kolejnymi krokami
         ### TEST ####
-        # a)
+        # a) sprawdza czy udało się wyszukać właściwy film jako pierwszy.
         wait = WebDriverWait(self.driver, 10)
         next_results = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="site"]/div[3]/div[2]/div/div[2]/section/div/div')))
         self.assertTrue(next_results.is_displayed(), "The results not visible")
+        # b) Czy w obsadzie filmu znajduje się właściwy aktor
+        wait = WebDriverWait(self.driver, 15)
+        starring = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="1039"]/div/div[2]/div[2]/div[2]/h3[1]/a/span')))
+        self.assertTrue("John Travolta", starring[0].text)
         self.driver.quit()
