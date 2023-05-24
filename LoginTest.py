@@ -4,20 +4,22 @@ from selenium import webdriver
 from selenium.webdriver import Keys
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.relative_locator import locate_with
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support import expected_conditions as EC #web driver wait
 import pyautogui
 
 # DANE TESTOWE
 User = "tester284"
 password = "Tester284wsb7"
 search = "Pulp fiction"
+pyautogui.FAILSAFE = False
 scroll_amount = 100  # Ilość pikseli do przewinięcia w jednym kroku
 scroll_iterations = 4  # Ilość kroków przewijania
 chrome_options = Options()
 chrome_options.add_experimental_option("prefs", {"profile.default_content_setting_values.notifications": 2})
 
-class RegistrationTests(unittest.TestCase):
+class LoginTest(unittest.TestCase):
     def setUp(self):
         """Test preparation"""
         # Przygotowanie testu
@@ -31,7 +33,7 @@ class RegistrationTests(unittest.TestCase):
         self.driver.get("https://www.filmweb.pl/")
         time.sleep(3)
         # (Akceptuje cookie)
-        wait = WebDriverWait(self.driver, 10)
+        wait = WebDriverWait(self.driver, 10) #### opoźniam działanie sterownika WEB DRIVER - Maksymalny czas oczekiwania w sekundach
         cookie_accept = wait.until(EC.presence_of_element_located((By.ID, "didomi-notice-agree-button")))
         cookie_accept.click()
         time.sleep(3)
@@ -77,14 +79,34 @@ class RegistrationTests(unittest.TestCase):
         time.sleep(5)
         for _ in range(scroll_iterations):
             self.driver.execute_script(f"window.scrollBy(0, {scroll_amount})")
-            time.sleep(2)  # Odstęp między kolejnymi krokami
+            time.sleep(0.9)  # Odstęp między kolejnymi krokami
+
         ### TEST ####
-        # a) sprawdza czy udało się wyszukać właściwy film jako pierwszy.
+
+        # a) sprawdź czy udało się wyszukać właściwy film.
+        # Jeśli element nie jest widoczny, zostanie wywołany błąd z komunikatem "The results not visible".
+
         wait = WebDriverWait(self.driver, 10)
         next_results = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="site"]/div[3]/div[2]/div/div[2]/section/div/div')))
         self.assertTrue(next_results.is_displayed(), "The results not visible")
-        # b) Czy w obsadzie filmu znajduje się właściwy aktor
-        wait = WebDriverWait(self.driver, 15)
-        starring = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="1039"]/div/div[2]/div[2]/div[2]/h3[1]/a/span')))
-        self.assertTrue("John Travolta", starring[0].text)
+
+        # b) Sprawdź czy film jest pierwszy w kolejce wyszukiwania :
+
+        search_bar = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[5]/div[3]/div[2]/div/div[2]/section/div/div[1]/div[1]/div')))
+        self.assertTrue(locate_with(By.XPATH, '//*[@id="site"]/div[3]/div[2]/div/div[2]/section/div/div').near(search_bar))
+
+        # c) Sprawdź czy imię aktora "John Travolta" wystepuje i czy więcj niz raz :
+        starring = self.driver.find_elements(By.XPATH, '/html/body/div[5]/div[3]/div[2]/div/div[2]/section/div/div[2]/div[1]/div/div[2]/div[2]/div[2]/h3[1]/a/span')
+        self.assertEqual("John Travolta", starring[0].text)
+        self.assertEqual(1, len(starring))
+
+        ###################################################################
+
+        if __name__ == '__main__':
+            test_case = LoginTest('testNoNameEntered')
+            result = unittest.TestResult()
+            test_case.run(result)
+            with open('test_report.txt', 'w') as file:
+                result.to_file(file)
+        time.sleep(5)
         self.driver.quit()
