@@ -72,7 +72,7 @@ class LoginTest(unittest.TestCase):
         login = self.driver.find_element(By.XPATH, '//*[@id="loginForm"]/div[2]/ul/li[1]/button')
         login.click()
         # 7. Wyszukaj film
-        time.sleep(6)
+        time.sleep(8)
         wait = WebDriverWait(self.driver, 10)
         search_input = wait.until(EC.presence_of_element_located((By.ID, 'inputSearch')))
         search_input.send_keys(search, Keys.ENTER)
