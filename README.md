@@ -2,15 +2,22 @@
 Graduation project
 
 
-Imported library :
+Aby uruchomić test korzystający z Selenium w Pythonie, potrzebujesz następujących bibliotek:
 
-import time
-import unittest
-from selenium import webdriver
-from selenium.webdriver import Keys
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.relative_locator import locate_with
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC 
-import pyautogui 
+**Time**: Biblioteka do zarządzania czasem, która umożliwia oczekiwanie na określony czas w testach.
+
+**Unittest**: Framework do tworzenia i uruchamiania testów jednostkowych w Pythonie.
+
+**Selenium**: Główna biblioteka, która zapewnia interakcję z przeglądarką internetową. Potrzebujesz jej modułów webdriver, Keys i chrome.options.
+
+**Selenium.webdriver.common.by**: Moduł umożliwiający identyfikację elementów na stronie za pomocą różnych strategii wyszukiwania, takich jak By.ID, By.CLASS_NAME, itp.
+
+**Selenium.webdriver.support.relative_locator:** Moduł umożliwiający odnalezienie elementu względem innego elementu na stronie za pomocą metody locate_with.
+
+**Selenium.webdriver.support.ui.WebDriverWait:** Klasa do oczekiwania na określone warunki (np. element widoczny, klikalny) na stronie internetowej.
+
+**Selenium.webdriver.support.expected_conditions:** Moduł zawierający różne warunki, które można sprawdzać za pomocą WebDriverWait, np. EC.presence_of_element_located, EC.visibility_of_element_located, itp.
+
+**Pyautogui:** Biblioteka do automatyzacji interakcji z klawiaturą i myszą. Może być przydatna w niektórych przypadkach, gdy standardowe metody Selenium są niewystarczające.
+
+Upewnij się, że wszystkie te biblioteki są zainstalowane poprzez pip (menadżer pakietów dla Pythona) przed uruchomieniem testu. Na przykład, możesz użyć komendy pip install selenium w terminalu, aby zainstalować bibliotekę Selenium.
