@@ -18,5 +18,3 @@ Aby uruchomić test korzystający z Selenium w Pythonie, potrzebujesz następuj�
 **Selenium.webdriver.support.expected_conditions:** Moduł zawierający różne warunki, które można sprawdzać za pomocą WebDriverWait, np. EC.presence_of_element_located, EC.visibility_of_element_located, itp.
 
 **Pyautogui:** Biblioteka do automatyzacji interakcji z klawiaturą i myszą. Może być przydatna w niektórych przypadkach, gdy standardowe metody Selenium są niewystarczające.
-
-Upewnij się, że wszystkie te biblioteki są zainstalowane poprzez pip (menadżer pakietów dla Pythona) przed uruchomieniem testu.
