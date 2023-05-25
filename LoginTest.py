@@ -23,13 +23,13 @@ class LoginTest(unittest.TestCase):
     def setUp(self):
         """Test preparation"""
         # Przygotowanie testu
-        # 1a) Tworzę instancję klasy Chrome() definiuję dla niej opcje
+        # a) Tworzę instancję klasy Chrome() definiuję dla niej opcje
         self.driver = webdriver.Chrome(options=chrome_options)
         # (Zmaksymalizuj okno)
         self.driver.maximize_window()
         # (Przesuń kursor do lewego górnego rogu za pomocą "autogui" określając pozycję)
         pyautogui.moveTo(0, 0)
-        # 1b) Otwieram stronę
+        # b) Otwieram stronę
         self.driver.get("https://www.filmweb.pl/")
         time.sleep(3)
         # (Akceptuje cookie)
@@ -50,7 +50,7 @@ class LoginTest(unittest.TestCase):
         # KROKI
         time.sleep(3)
         wait = WebDriverWait(self.driver, 10)
-        # 2.Wyszukuję i klikam przycisk "zaloguj1"
+        # 1.Wyszukuję i klikam przycisk "zaloguj1"
         zaloguj_a = wait.until(EC.presence_of_element_located((By.ID, "main-header_login-link")))
         zaloguj_a.click()
         time.sleep(3)
@@ -77,7 +77,7 @@ class LoginTest(unittest.TestCase):
         search_input = wait.until(EC.presence_of_element_located((By.ID, 'inputSearch')))
         search_input.send_keys(search, Keys.ENTER)
         time.sleep(5)
-        for _ in range(scroll_iterations):
+        for _ in range(scroll_iterations): ## opóźnienie scrolowania w postaci pętli
             self.driver.execute_script(f"window.scrollBy(0, {scroll_amount})")
             time.sleep(0.9)  # Odstęp między kolejnymi krokami
 
@@ -95,18 +95,11 @@ class LoginTest(unittest.TestCase):
         search_bar = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[5]/div[3]/div[2]/div/div[2]/section/div/div[1]/div[1]/div')))
         self.assertTrue(locate_with(By.XPATH, '//*[@id="site"]/div[3]/div[2]/div/div[2]/section/div/div').near(search_bar))
 
-        # c) Sprawdź czy imię aktora "John Travolta" wystepuje i czy więcj niz raz :
+        # c) Sprawdź czy imię aktora "John Travolta" wystepuje i czy więcej niz raz :
         starring = self.driver.find_elements(By.XPATH, '/html/body/div[5]/div[3]/div[2]/div/div[2]/section/div/div[2]/div[1]/div/div[2]/div[2]/div[2]/h3[1]/a/span')
         self.assertEqual("John Travolta", starring[0].text)
         self.assertEqual(1, len(starring))
 
         ###################################################################
-
-        if __name__ == '__main__':
-            test_case = LoginTest('testNoNameEntered')
-            result = unittest.TestResult()
-            test_case.run(result)
-            with open('test_report.txt', 'w') as file:
-                result.to_file(file)
         time.sleep(5)
         self.driver.quit()
