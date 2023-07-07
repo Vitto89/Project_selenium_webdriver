@@ -1,6 +1,6 @@
-Automatyzacja przypadku testowego przy pomocy Selenium Webdriver
+## Automatyzacja przypadku testowego przy pomocy Selenium Webdriver
 
-#Automatyczne testy logowania na stronie Filmweb.pl
+Automatyczne testy logowania na stronie Filmweb.pl
 
 Ten projekt zawiera automatyczne testy logowania na stronie Filmweb.pl przy użyciu narzędzia Selenium. Testy sprawdzają poprawność logowania oraz przeszukują stronę w poszukiwaniu filmu.
 
