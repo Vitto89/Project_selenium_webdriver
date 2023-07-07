@@ -38,9 +38,6 @@ class LoginTest(unittest.TestCase):
         cookie_accept.click()
         time.sleep(3)
         # (przewija reklamę)
-        wait = WebDriverWait(self.driver, 10)  # Maksymalny czas oczekiwania w sekundach
-        skip_accept = wait.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[1]/div[1]/div/button')))
-        skip_accept.click()
 
     def tearDown(self):
         # Wyłącz przeglądarkę
