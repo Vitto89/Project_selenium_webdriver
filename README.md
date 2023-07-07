@@ -26,7 +26,7 @@ git clone https://github.com/Vitto89/Project_selenium_webdriver
 
 ## Opis testu
 
-Test `testNoNameEntered` sprawdza poprawność logowania na stronie Filmweb.pl oraz wyszukuje film na podstawie podanego tytułu. Test sprawdza, czy film jest widoczny w wynikach wyszukiwania, czy jest pierwszy w kolejce wyników oraz czy zawiera określonego aktora.
+Test sprawdza poprawność logowania na stronie Filmweb.pl oraz wyszukuje film na podstawie podanego tytułu. Test sprawdza, czy film jest widoczny w wynikach wyszukiwania, czy jest pierwszy w kolejce wyników oraz czy zawiera określonego aktora.
 
 ## Oczekiwane rezultaty :
 • Logowanie powiodło się, widnieje nazwa użytkownika w prawym górnym rogu.
